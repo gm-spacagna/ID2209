@@ -1,4 +1,4 @@
-package agents;
+package hw1.agents;
 
 import jade.core.Agent;
 import jade.core.behaviours.SimpleBehaviour;
@@ -39,7 +39,7 @@ public class GianmarioAgent extends Agent {
       if (!finished) {
         System.out.println("Hello World! My name is " + myAgent.getLocalName());
         finished = true;
-      } 
+      }
     }
 
     @Override

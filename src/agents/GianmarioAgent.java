@@ -28,15 +28,18 @@ public class GianmarioAgent extends Agent {
      */
     private static final long serialVersionUID = -205710971451777349L;
 
-    public GianmarioBehaviour(GianmarioAgent gianmarioAgent) {
-      super(gianmarioAgent);
+    public GianmarioBehaviour(Agent agent) {
+      super(agent);
     }
 
-    private boolean finished;
-    
+    private boolean finished = false;
+
     @Override
     public void action() {
-      finished = false;
+      if (!finished) {
+        System.out.println("Hello World! My name is " + myAgent.getLocalName());
+        finished = true;
+      } 
     }
 
     @Override

@@ -1,5 +1,7 @@
 package hw1.agents;
 
+import property.OfferedServiceManager;
+import property.OfferedServiceProperty;
 import jade.core.Agent;
 import jade.domain.DFService;
 import jade.domain.FIPAException;
@@ -20,8 +22,7 @@ public class Profiler extends Agent {
       DFService.deregister(this);
     } catch (FIPAException e) {
       // Printout a dismissal message
-      System.out
-          .println("Agent " + getAID().getName() + " terminating.");
+      System.out.println("Agent " + getAID().getName() + " terminating.");
     }
   }
 
@@ -32,10 +33,12 @@ public class Profiler extends Agent {
     ServiceDescription sd = new ServiceDescription();
     sd.setType("awesome-service");
     sd.setName(getLocalName());
+    OfferedServiceManager.putProperty(getAID(), new OfferedServiceProperty(
+        new Profile("My profile is awesome!!!")));
     dfd.addServices(sd);
     try {
       DFService.register(this, dfd);
-      System.out.println("I have registered my service");
+      System.out.println("Profiler: I have registered my service");
     } catch (FIPAException fe) {
       fe.printStackTrace();
     }
@@ -48,5 +51,19 @@ public class Profiler extends Agent {
 
   public Profiler() {
     super();
+  }
+
+  class Profile {
+    @Override
+    public String toString() {
+      return "Profile [description=" + description + "]";
+    }
+
+    String description;
+
+    public Profile(String description) {
+      super();
+      this.description = description;
+    }
   }
 }

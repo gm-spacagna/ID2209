@@ -36,7 +36,7 @@ public class Curator extends Agent {
     ACLMessage message = DFService.createSubscriptionMessage(this,
         getDefaultDF(), dfd, sc);
 
-    System.out.println("Subscription Message is:");
+    System.out.println("Curator: Subscription Message is:");
     System.out.println(message);
 
     addBehaviour(new SubscriptionInitiator(this, message) {
@@ -45,7 +45,7 @@ public class Curator extends Agent {
           DFAgentDescription[] dfds = DFService.decodeNotification(inform
               .getContent());
           
-          System.out.println("New agents have registered:");
+          System.out.println("Curator: New agents have registered:");
           for (DFAgentDescription dfd : dfds) {
             System.out.println(dfd.getName());
           }

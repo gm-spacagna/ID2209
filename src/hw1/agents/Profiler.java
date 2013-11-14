@@ -21,7 +21,7 @@ public class Profiler extends Agent {
     } catch (FIPAException e) {
       // Printout a dismissal message
       System.out
-          .println("Seller-agent " + getAID().getName() + " terminating.");
+          .println("Agent " + getAID().getName() + " terminating.");
     }
   }
 
@@ -35,6 +35,7 @@ public class Profiler extends Agent {
     dfd.addServices(sd);
     try {
       DFService.register(this, dfd);
+      System.out.println("I have registered my service");
     } catch (FIPAException fe) {
       fe.printStackTrace();
     }

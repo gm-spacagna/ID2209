@@ -9,6 +9,10 @@ import jade.core.behaviours.SimpleBehaviour;
  * @author Gianmario Spacagna (gspacagn@cisco.com)
  */
 public class GianmarioAgent extends Agent {
+  
+  public static void main(String[] args) {
+    System.out.println("Hello");
+  }
 
   /**
    * 

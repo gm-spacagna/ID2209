@@ -44,8 +44,11 @@ public class Curator extends Agent {
         try {
           DFAgentDescription[] dfds = DFService.decodeNotification(inform
               .getContent());
-
-          // do something with dfds
+          
+          System.out.println("New agents have registered:");
+          for (DFAgentDescription dfd : dfds) {
+            System.out.println(dfd.getName());
+          }
         } catch (FIPAException fe) {
           fe.printStackTrace();
         }

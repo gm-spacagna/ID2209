@@ -14,7 +14,7 @@ import jade.proto.SubscriptionInitiator;
  * 
  * @author Gianmario Spacagna (gspacagn@cisco.com)
  */
-public class Curator extends Agent {
+public class SubscriberAgent extends Agent {
 
   @Override
   protected void setup() {
@@ -29,14 +29,13 @@ public class Curator extends Agent {
   private void subscribe() throws FIPAException {
     DFAgentDescription dfd = new DFAgentDescription();
     ServiceDescription sd = new ServiceDescription();
-    sd.setType("awesome-service");
     dfd.addServices(sd);
     SearchConstraints sc = new SearchConstraints();
     sc.setMaxResults(new Long(1));
     ACLMessage message = DFService.createSubscriptionMessage(this,
         getDefaultDF(), dfd, sc);
 
-    System.out.println("Curator: Subscription Message is:");
+    System.out.println(getName() + ": Subscription Message is:");
     System.out.println(message);
 
     addBehaviour(new SubscriptionInitiator(this, message) {
@@ -44,8 +43,9 @@ public class Curator extends Agent {
         try {
           DFAgentDescription[] dfds = DFService.decodeNotification(inform
               .getContent());
-          
-          System.out.println("Curator: New agents have registered:");
+
+          System.out.println(myAgent.getName()
+              + ": New agents have registered:");
           for (DFAgentDescription dfd : dfds) {
             System.out.println(dfd.getName());
           }
@@ -61,7 +61,7 @@ public class Curator extends Agent {
    */
   private static final long serialVersionUID = 1L;
 
-  public Curator() {
+  public SubscriberAgent() {
     super();
   }
 }

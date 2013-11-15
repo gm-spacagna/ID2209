@@ -1,4 +1,4 @@
-package hw1.agents;
+package hw1.agents.mocks;
 
 import jade.core.Agent;
 import jade.core.behaviours.SimpleBehaviour;

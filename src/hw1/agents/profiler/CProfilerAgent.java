@@ -5,6 +5,10 @@ import hw1.agents.curator.CArtifact;
 import hw1.agents.curator.CCuratorAgent;
 import hw1.agents.tourguide.CTourGuideAgent;
 import hw1.service.ProvidedService;
+import hw2.auction.Auction;
+import hw2.auction.AuctionStrategyBehaviour;
+import hw2.auction.Auction.State;
+import hw2.auction.Auction.Type;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
@@ -46,7 +50,7 @@ public class CProfilerAgent extends ServiceProviderAgent {
   private List<Integer> recommendations = new ArrayList<Integer>();
   private final static int TIME_DELAY_FOR_REQUESTING_TOUR_GUIDE = 5000;
   private static final String AGENT_NAME = "profiler_agent";
-
+  
   @Override
   protected void setup() {
     super.setup();
@@ -66,6 +70,10 @@ public class CProfilerAgent extends ServiceProviderAgent {
     sequential.addSubBehaviour(par);
 
     this.addBehaviour(sequential);
+    
+    
+    
+    
   }
 
   private void registerAgent() {
@@ -125,7 +133,7 @@ public class CProfilerAgent extends ServiceProviderAgent {
                 + "a request to the tour guide agent. ", ex);
       }
     }
-
+    
     @Override
     public void onTick() {
       DFAgentDescription template = new DFAgentDescription();

@@ -5,6 +5,10 @@ import hw1.agents.profiler.CProfilerAgent;
 import hw1.agents.tourguide.CTourGuideAgent;
 import hw1.service.PrintableArray;
 import hw1.service.ProvidedService;
+import hw2.auction.Auction;
+import hw2.auction.AuctionStrategyBehaviour;
+import hw2.auction.Auction.State;
+import hw2.auction.Auction.Type;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.DataStore;
 import jade.core.behaviours.SequentialBehaviour;
@@ -35,6 +39,7 @@ public class CCuratorAgent extends ServiceProviderAgent {
   public static final String CURATOR_AGENT_NAME = "curatorAgent";
   public static final String CURATOR_ONTOLOGY = "curator-ontology";
 
+  protected Auction auction;
   // template for filtering incoming messages
   private final MessageTemplate requestTemplate = new MessageTemplate(
       new MessageTemplate.MatchExpression() {
@@ -55,12 +60,12 @@ public class CCuratorAgent extends ServiceProviderAgent {
   protected void setup() {
     super.setup();
     System.out.println(">>> The curator agent is being started ...");
+    registerAgentToDF();
     SequentialBehaviour sequential = new SequentialBehaviour();
     sequential.addSubBehaviour(new CMesageReceiver(this, requestTemplate,
         MsgReceiver.INFINITE, new DataStore(), new Object()));
     sequential.addSubBehaviour(new CBehaviourForListeningIncomingMessages());
     this.addBehaviour(sequential);
-    registerAgentToDF();
   }
 
   @Override
@@ -68,7 +73,7 @@ public class CCuratorAgent extends ServiceProviderAgent {
     unregisterAgentFromDF();
   }
 
-  private void registerAgentToDF() {
+  protected void registerAgentToDF() {
     DFAgentDescription dfd = new DFAgentDescription();
     dfd.setName(getAID());
     ServiceDescription sd = new ServiceDescription();
@@ -78,6 +83,7 @@ public class CCuratorAgent extends ServiceProviderAgent {
 
     try {
       DFService.register(this, dfd);
+      System.out.println("Curator registered");
     } catch (FIPAException fe) {
       fe.printStackTrace();
     }
